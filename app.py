@@ -16,12 +16,12 @@ with open('./trends.txt') as w:
     trend_text = w.read()
 trend_list = trend_text.split()
 word_list = re.split("\W*[^\'\w+\']", stirner_text)
-with open('./dfRick.csv') as input_file:
+with open('./rick_lines.csv') as input_file:
     text_list = input_file.read()
     # lines = [line.split(",", 2) for line in input_file.readlines()]
     # text_list = [" ".join(line) for line in lines]
-rick_roll = re.sub("^\d+\s|\s\d+\s|\s\d+$", " ", text_list)
-rick_rolled = re.split("\W*[^\'\w+\']", rick_roll)
+#rick_roll = re.sub("^\d+\s|\s\d+\s|\s\d+$", "", text_list)
+rick_rolled = re.split("\W*[^\'\w+\']", text_list)
 def histogram(words):
     #words_list = re.split("(?:(?:[^a-zA-Z]+')|(?:'[^a-zA-Z]+))|(?:[^a-zA-Z']+)", words)
     #words_list = re.split("\W*[^\'\w+\']", words)
