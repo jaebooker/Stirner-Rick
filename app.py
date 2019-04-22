@@ -20,8 +20,8 @@ with open('./rick_lines.csv') as input_file:
     text_list = input_file.read()
     # lines = [line.split(",", 2) for line in input_file.readlines()]
     # text_list = [" ".join(line) for line in lines]
-#rick_roll = re.sub("^\d+\s|\s\d+\s|\s\d+$", "", text_list)
-rick_rolled = re.split("\W*[^\'\w+\']", text_list)
+rick_roll = re.sub("^\d+\s|\s\d+\s|\s\d+$", "", text_list)
+rick_rolled = re.split("\W*[^\'\w+\']", rick_roll)
 def histogram(words):
     #words_list = re.split("(?:(?:[^a-zA-Z]+')|(?:'[^a-zA-Z]+))|(?:[^a-zA-Z']+)", words)
     #words_list = re.split("\W*[^\'\w+\']", words)
@@ -42,21 +42,20 @@ def histogram(words):
         i += 1
     return word_dictionary
 
-def stirner_speaks(stirner_words, trend_words):
-    trend_word = stirner_text[random.randrange(0,len(trend_words))]
+def stirner_speaks(stirner_words):
     stirner_sentence = markdown2(stirner_words, 20)
     stirner_string = ""
     for i in stirner_sentence:
         stirner_string += " "
         stirner_string += i.lower()
     stirner_string += " "
-    stirner_string += trend_word
     return stirner_string
 
 @app.route('/')
 def hello():
     redis.incr('hits')
-    this_string = stirner_speaks(rick_rolled, word_list)
+    new_list = word_list + rick_rolled
+    this_string = stirner_speaks(new_list)
     return render_template('index.html', message=this_string)
 
 
